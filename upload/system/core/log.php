@@ -22,10 +22,39 @@ class FLLog
 	 * 
 	 * @access	public
 	 * @static
-	 * @return	void
+	 * @param	string	$filename
+	 * @param	string	$message
+	 * @return	boolean
 	 */
-	public static function create()
+	public static function create($filename, $message)
 	{
+		$autoload_config	=	new FLConfig('autoload');
 		
+		if ($autoload_config->setting('logs'))
+		{
+			$handle	=	fopen(LOGS_PATH . $filename, 'w');
+		
+			if (!$handle = fopen(LOGS_PATH . $filename, 'w'))
+			{
+				// Could not open file
+				return false;
+			}
+		
+			$message	.=	"\n";
+		
+			if (fwrite($handle, $message) === false)
+			{
+				// Could not write to file
+				return false;
+			}
+		
+			fclose($handle);
+		
+			return true;
+		}
+		else
+		{
+			return false;
+		}
 	}
 }

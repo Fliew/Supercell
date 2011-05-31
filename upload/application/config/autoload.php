@@ -29,3 +29,6 @@ $database	=	false;
 
 // Default Timezone
 $timezone	=	'Canada/Saskatchewan';
+
+// Do you want log files created?
+$logs		=	true;

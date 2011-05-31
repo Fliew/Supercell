@@ -27,6 +27,17 @@ class FLErrors
 	 */
 	public static function handle($where, $message)
 	{
-		die('<br /><b>Error: [' . $where . '] ' . $message . '</b><br />');
+		$autoload_config	=	new FLConfig('autoload');
+		
+		$compiled_message	=	'Error: [' . $where . '] ' . $message;
+		
+		// Log error message
+		FLLog::create('SUPERCELL ERRORS', $compiled_message);
+		
+		// Display error message
+		if ($autoload_config->setting('debug'))
+		{
+			die('<br /><b>Error: [' . $where . '] ' . $message . '</b><br />');
+		}
 	}
 }
