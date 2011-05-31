@@ -1,3 +1,4 @@
 *.DS_Store
+upload/application/cache/language/*.php
 upload/application/cache/template/*.php
 upload/application/cache/template_compile/*.php
