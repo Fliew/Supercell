@@ -24,4 +24,33 @@ interface FLActionInterface
 	 * @return	array
 	 */
 	public static function get_vars();
+	
+	/**
+	 * Creates a url with the correct path
+	 * 
+	 * @access	public
+	 * @param	string	$url		ex: test/test
+	 * @param	boolean	$fullPath	Include the domain in the address ex: http://fliew.com/
+	 * @return	string
+	 */
+	public static function build_url($url, $full_path = false);
+	
+	/**
+	 * HTML meta redirect
+	 * 
+	 * @access	public
+	 * @param	string	$url
+	 * @param	integer	$time
+	 * @return	string
+	 */
+	public static function redirect($url, $time);
+	
+	/**
+	 * PHP redirect
+	 * 
+	 * @access	public
+	 * @param	string	$url
+	 * @return	void
+	 */
+	public static function php_redirect($url);
 }

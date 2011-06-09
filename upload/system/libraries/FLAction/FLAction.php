@@ -32,4 +32,77 @@ class FLAction implements FLActionInterface
 		
 		return $vars_array;
 	}
+	
+	/**
+	 * Creates a url with the correct path
+	 * 
+	 * @access	public
+	 * @param	string	$url		ex: test/test
+	 * @param	boolean	$fullPath	Include the domain in the address ex: http://fliew.com/
+	 * @return	string
+	 */
+	public static function build_url($url, $full_path = false)
+	{
+		// Config
+		$paths	=	new FLConfig('paths');
+		
+		$build_url	=	'';
+		
+		if ($url['0'] != '/')
+		{
+			$url		=	'/' . $url;
+		}
+		
+		if ($full_path)
+		{
+			$length	=	strlen(WEB_PATH);
+			
+			if ($url[$length] == '/')
+			{
+				$full_path_url	=	substr(WEB_PATH, 0, -1);
+			}
+			else
+			{
+				$full_path_url	=	WEB_PATH;
+			}
+			
+			$build_url	.=	$full_path_url;
+		}
+		
+		if ($paths->setting('htaccess') === false)
+		{
+			$build_url	.=	'index.php';
+		}
+		
+		$build_url	.=	$url;
+		
+		return $build_url;
+	}
+	
+	/**
+	 * HTML meta redirect
+	 * 
+	 * @access	public
+	 * @param	string	$url
+	 * @param	integer	$time
+	 * @return	string
+	 */
+	public static function redirect($url, $time = 0)
+	{
+		$redirect	=	'<meta http-equiv="refresh" content="' . $time . '; url=' . $path . '" />';
+		
+		return $redirect;
+	}
+	
+	/**
+	 * PHP redirect
+	 * 
+	 * @access	public
+	 * @param	string	$url
+	 * @return	void
+	 */
+	public static function php_redirect($url)
+	{
+		header('Location: ' . $path);
+	}
 }

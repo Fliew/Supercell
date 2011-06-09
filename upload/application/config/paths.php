@@ -18,3 +18,5 @@
 $default_path		=	'index';
 $default_location	=	'main';
 $path_style			=	'0';
+
+$htaccess	=	false;
