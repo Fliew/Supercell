@@ -15,6 +15,7 @@ class test
 		load::library('FLAction');
 		load::library('FLDatabase');
 		load::library('FLDate');
+		load::library('FLXml');
 	}
 	
 	/**
@@ -48,16 +49,24 @@ class test
 		
 		// FLFilter
 		
+		// FLXml
+		$xml	=	FLXml::build('title', 'description', '', '', array(
+				'name'	=>	'value'
+			)
+		);
+		
+		var_dump($xml);
 	}
 	
 	/**
 	 * Subpage test
+	 * index.php/test/subpage
 	 * 
 	 * @access	public
 	 * @return	void
 	 */
 	public function subpage()
 	{
-		
+		echo 'Hello world';
 	}
 }

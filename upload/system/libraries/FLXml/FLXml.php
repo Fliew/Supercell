@@ -86,4 +86,19 @@ class FLXml implements FLXmlInterface
 		
 		return $rss;
 	}
+	
+	/**
+	 * Parses XML into an array
+	 * 
+	 * @access	public
+	 * @static
+	 * @param	string	$xml
+	 * @return	array
+	 */
+	public static function parse($xml)
+	{
+		$return	=	array();
+		
+		return $return;
+	}
 }

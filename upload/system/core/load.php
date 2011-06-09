@@ -96,15 +96,6 @@ class load
 			
 			// Found
 			require_once($path);
-			
-			// Object?
-			/*
-			if ((isset($name::$FM_OBJECT) && $name::$FM_OBJECT === true) || $force_object === true)
-			{
-				return $$name	=	new $name;
-			}
-			*/
-			return $$name	=	new $name;
 		}
 	}
 }

@@ -15,7 +15,7 @@
  * @category	FLXml
  */
 
-class fm_xml implements fm_xml_interface
+interface FLXmlInterface
 {
 	/**
 	 * Build an RSS file
@@ -30,4 +30,14 @@ class fm_xml implements fm_xml_interface
 	 * @return	string
 	 */
 	public static function build($title, $description, $link, $ttl, $values);
+	
+	/**
+	 * Parses XML into an array
+	 * 
+	 * @access	public
+	 * @static
+	 * @param	string	$xml
+	 * @return	array
+	 */
+	public static function parse($xml);
 }
