@@ -30,11 +30,18 @@ class test
 		echo '<b>FLAction</b><br />';
 		$url_variables	=	FLAction::get_vars();
 		
-		// URL Variables
 		echo 'get_vars: ';
 		var_dump($url_variables);
 		
+		echo '<br />';
+		
+		$build_url	=	FLAction::build_url('test/test');
+		
+		echo 'build_url: ';
+		var_dump($build_url);
+		
 		echo '<br /><br />';
+		
 		// FLDatabase Test
 		
 		echo '<br /><br />';
