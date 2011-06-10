@@ -57,7 +57,7 @@ class FLAction implements FLActionInterface
 		{
 			$length	=	strlen(WEB_PATH);
 			
-			if ($url[$length] == '/')
+			if ($url[$length - 1] == '/')
 			{
 				$full_path_url	=	substr(WEB_PATH, 0, -1);
 			}
@@ -75,6 +75,12 @@ class FLAction implements FLActionInterface
 		}
 		
 		$build_url	.=	$url;
+		$length		=	strlen($build_url);
+		
+		if ($build_url[$length - 1] == '/')
+		{
+			$build_url	=	substr($build_url, 0, -1);
+		}
 		
 		return $build_url;
 	}
@@ -103,6 +109,6 @@ class FLAction implements FLActionInterface
 	 */
 	public static function php_redirect($url)
 	{
-		header('Location: ' . $path);
+		header('Location: ' . $url);
 	}
 }
