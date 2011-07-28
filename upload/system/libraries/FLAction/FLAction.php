@@ -111,4 +111,35 @@ class FLAction implements FLActionInterface
 	{
 		header('Location: ' . $url);
 	}
+	
+	/**
+	 * Gets page data.
+	 * Works well for version checks.
+	 * 
+	 * @access	public
+	 * @param	string	$url
+	 * @return	string
+	 */
+	public static function get_url_contents($url)
+	{
+		if (function_exists('curl_init'))
+		{
+			// We can use curl
+			$ch	=	curl_init();
+
+			curl_setopt($ch, CURLOPT_URL, $url);
+			curl_setopt($ch, CURLOPT_HEADER, 0);
+			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+			$page	=	curl_exec($ch);
+
+			curl_close($ch);
+
+			return $page;
+		}
+		else
+		{
+			die('Supercell System Action Error: Can not use this function because you need CURL installed.');
+		}
+	}
 }

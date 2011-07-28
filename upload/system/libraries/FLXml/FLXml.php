@@ -99,6 +99,9 @@ class FLXml implements FLXmlInterface
 	{
 		$return	=	array();
 		
+		// Parse XML
+		
+		
 		return $return;
 	}
 }

@@ -43,7 +43,7 @@ interface FLActionInterface
 	 * @param	integer	$time
 	 * @return	string
 	 */
-	public static function redirect($url, $time);
+	public static function redirect($url, $time = 0);
 	
 	/**
 	 * PHP redirect
@@ -53,4 +53,14 @@ interface FLActionInterface
 	 * @return	void
 	 */
 	public static function php_redirect($url);
+	
+	/**
+	 * Gets page data.
+	 * Works well for version checks.
+	 * 
+	 * @access	public
+	 * @param	string	$url
+	 * @return	string
+	 */
+	public static function get_url_contents($url);
 }
