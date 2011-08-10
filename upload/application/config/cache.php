@@ -22,3 +22,7 @@ $language_ttl	=	3600;
 // Template Caching
 $template_caching	=	true;
 $template_ttl		=	3600;
+
+// General Caching
+$general_caching	=	true;
+$general_ttl		=	3600;

@@ -13,6 +13,7 @@ class test
 	{
 		// Load Libraries
 		load::library('FLAction');
+		load::library('FLCache');
 		load::library('FLDatabase');
 		load::library('FLDate');
 		load::library('FLXml');
@@ -63,6 +64,26 @@ class test
 		);
 		
 		var_dump($xml);
+		
+		// Cache
+		$test_cache	=	new FLCache('test_cache');
+		
+		if ($test_cache->is_cached())
+		{
+			$test_cache->display();
+		}
+		else
+		{
+			$test_cache->start();
+			
+			echo '<br /><br />';
+			
+			echo 'Cache Time: ' . time();
+			
+			echo '<br /><br />';
+			
+			$test_cache->end();
+		}
 	}
 	
 	/**
