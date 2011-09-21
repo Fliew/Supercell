@@ -107,12 +107,12 @@ class FLLanguage implements FLLanguageInterface
 		
 		if (!$handle = fopen($path, 'w'))
 		{
-			FLErrors::handle('Language Cache', 'Could not open file ' . $path);
+			throw new FLErrors('Could not open file');
 		}
 		
 		if (fwrite($handle, $content) === false)
 		{
-			FLErrors::handle('Language Cache', 'Could not write to file ' . $path);
+			throw new FLErrors('Could not write to file');
 		}
 		
 		fclose($handle);
@@ -165,7 +165,7 @@ class FLLanguage implements FLLanguageInterface
 					
 					if (!is_array($$key[$i]))
 					{
-						FLErrors::handle('Language Cache Error', ' The language file\'s (' . $array[$key[$i]] . ') variable (' . $key[$i] . ') does not have an array.');
+						throw new FLErrors('The language file\'s (' . $array[$key[$i]] . ') variable (' . $key[$i] . ') does not have an array.');
 					}
 					
 					self::$lang_array	=	array_merge(self::$lang_array, $$key[$i]);
