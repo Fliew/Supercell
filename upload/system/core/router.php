@@ -34,12 +34,40 @@ class FLRouter
 		$this->settings	=	new FLConfig('paths');
 		
 		$locations	=	$this->get_locations();
+		
 		if ($init === true)
 		{
 			if (isset($locations['controller']) && isset($locations['function']))
 			{
 				$this->controller($locations['controller'], $locations['function']);
 			}
+		}
+	}
+	
+	/**
+	 * Handles error page
+	 * 
+	 * @access	public
+	 * @return	void
+	 */
+	public function error()
+	{
+		$error_path	=	$this->settings->setting('error_path');
+		if (!file_exists(SERVER_PATH . 'application/public/controllers/' . $error_path . '.php'))
+		{
+			throw new FLErrors('Error page not found.');
+		}
+		else
+		{
+			require_once(SERVER_PATH . 'application/public/controllers/' . $error_path . '.php');
+			
+			$location	=	$this->settings->setting('default_location');
+			
+			$error_path	=	new $error_path;
+			
+			$error_path->$location();
+			
+			exit;
 		}
 	}
 	
@@ -56,9 +84,7 @@ class FLRouter
 		// Handles bad requests
 		if (!file_exists(SERVER_PATH . 'application/public/controllers/' . $path . '.php'))
 		{
-			/**
-			 * @todo add error page
-			 */
+			$this->error();
 		}
 		else
 		{
@@ -69,14 +95,13 @@ class FLRouter
 			// Takes last part if there are slashes.
 			$path	=	explode('/', $path);
 			$path	=	end($path);
+						
 			$page	=	new $path;
 			
 			// Does the location exist?
 			if (!is_callable(array($page, $location), false))
 			{
-				/**
-				 * @todo add error page
-				 */
+				$this->error();
 			}
 			else
 			{
@@ -166,9 +191,7 @@ class FLRouter
 			
 			if ($controller === false)
 			{
-				/**
-				 * @todo errorpage
-				 */
+				$this->error();
 			}
 			else
 			{
@@ -201,6 +224,7 @@ class FLRouter
 						$return['vars_begin']	=	($this->before_function + 2);
 					}
 				}
+				
 				$return['vars']			=	$parts;
 				
 				return $return;
@@ -247,6 +271,7 @@ class FLRouter
 				else
 				{
 					// This doesn't exist... 404
+					$this->error();
 					return false;
 				}
 			}

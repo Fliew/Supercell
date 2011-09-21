@@ -47,7 +47,7 @@ class FLConfig
 		if (!file_exists($this->path))
 		{
 			// Handle Error
-			$this->FLErrors->handle('core/config', 'Could not load config file. File could not be found.');
+			throw new FLErrors('Could not load config file, the file "' . $this->path . '" could not be found.');
 		}
 		else
 		{
@@ -70,7 +70,7 @@ class FLConfig
 		// Check if this variable exists
 		if (!array_key_exists($var, $this->variables))
 		{
-			FLErrors::handle('core/config', 'Config variable does not exist.');
+			throw new FLErrors('Config variable does not exist.');
 		}
 		else
 		{

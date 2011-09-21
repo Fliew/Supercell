@@ -43,7 +43,14 @@ class FLRun
 		}
 		
 		// Loads autoload config
-		$autoload	=	new FLConfig('autoload');
+		try
+		{
+			$autoload	=	new FLConfig('autoload');
+		}
+		catch (FLErrors $e)
+		{
+			echo $e->getMessage();
+		}
 		
 		// Set timezone
 		date_default_timezone_set($autoload->setting('timezone'));
@@ -65,7 +72,14 @@ class FLRun
 		if ($autoload->setting('database') === true)
 		{
 			// Start Database Connection
-			load::library('FLDatabase');
+			try
+			{
+				load::library('FLDatabase');
+			}
+			catch (FLErrors $e)
+			{
+				echo $e->getMessage();
+			}
 			
 			// Load Database Config
 			$database	=	new FLConfig('database');

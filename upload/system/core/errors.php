@@ -15,8 +15,19 @@
  * @category	core
  */
 
-class FLErrors
+class FLErrors extends Exception
 {
+	/**
+	 * Exceptions extension
+	 * 
+	 * @access	public
+	 * @return	void
+	 */
+	public function __construct($message, $code = 0, Exception $previous = null)
+	{
+		parent::__construct($message, $code, $previous);
+	}
+	
 	/**
 	 * Load a config file
 	 * 

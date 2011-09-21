@@ -33,7 +33,7 @@ class load
 		if (!file_exists($path))
 		{
 			// Send error
-			FLErrors::handle('Load Library Error', 'Library ' . $name . ' not found.');
+			throw new FLErrors('Library "' . $name . '" not found.');
 		}
 		else
 		{
@@ -75,7 +75,7 @@ class load
 		if (!file_exists($path))
 		{
 			// Send error
-			FLErrors::handle('Load Application Library Error', 'Library ' . $name . ' not found.');
+			throw new FLErrors('Application library "' . $name . '" not found.');
 		}
 		else
 		{

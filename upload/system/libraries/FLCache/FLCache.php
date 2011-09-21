@@ -79,7 +79,7 @@ class FLCache implements FLCacheInterface
 			// Does the path exist
 			if (!is_dir($this->path))
 			{
-				FLErrors::handle('Cache Constructor Error', 'Folder ' . $this->path . ' does not exist.');
+				throw new FLErrors('Folder ' . $this->path . ' does not exist.')
 			}
 		
 			$config	=	new FLConfig('cache');
@@ -167,7 +167,7 @@ class FLCache implements FLCacheInterface
 			}
 			else
 			{
-				FLErrors::handle('Cache End Error', 'Could not end a cache session that hasn\'t been started.');
+				throw new FLErrors('Could not end a cache session that hasn\'t been started.')
 			}
 		}
 	}

@@ -79,13 +79,11 @@ class mysql implements mysqlInterface
 			// There is an error.
 			if ($display_error == true)
 			{
-				// Creates log
-				FLErrors::handle('fm_database mysql driver', mysql_error() . ' ' . __FILE__ . ' '. __LINE__);
+				throw new FLErrors('Database MySQL Driver Error. ' . mysql_error() . ' ' . __FILE__ . ' '. __LINE__);
 			}
 			else
 			{
-				// Adds log
-				FLLog::create('fm_database mysql driver', mysql_error() . ' ' . __FILE__ . ' '. __LINE__);
+				throw new FLErrors('Database MySQL Driver Error. ' . mysql_error() . ' ' . __FILE__ . ' '. __LINE__);
 			}
 		}
 		
@@ -96,13 +94,11 @@ class mysql implements mysqlInterface
 			// There is an error.
 			if ($return_error == '1')
 			{
-				// Creates log
-				FLErrors::handle('fm_database mysql driver', mysql_error() . ' ' . __FILE__ . ' '. __LINE__);
+				throw new FLErrors('Database MySQL Driver Error. ' . mysql_error() . ' ' . __FILE__ . ' '. __LINE__);
 			}
 			else
 			{
-				// Adds log
-				FLLog::create('fm_database mysql driver', mysql_error() . ' ' . __FILE__ . ' '. __LINE__);
+				throw new FLErrors('Database MySQL Driver Error. ' . mysql_error() . ' ' . __FILE__ . ' '. __LINE__);
 			}
 		}
 		else
@@ -160,11 +156,11 @@ class mysql implements mysqlInterface
 			// There is an error.
 			if ($display_error == true)
 			{
-				FLErrors::handle('fm_database mysql driver', mysql_error() . ' ' . __LINE__ . ' ' . __FILE__);
+				throw new FLErrors('Database MySQL Driver Error. ' . mysql_error() . ' ' . __FILE__ . ' '. __LINE__);
 			}
 			else
 			{
-				FLErrors::log('fm_database mysql driver', mysql_error() . ' ' . __LINE__ . ' ' . __FILE__);
+				throw new FLErrors('Database MySQL Driver Error. ' . mysql_error() . ' ' . __FILE__ . ' '. __LINE__);
 			}
 		}
 		
