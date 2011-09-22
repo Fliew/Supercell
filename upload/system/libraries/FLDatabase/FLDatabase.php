@@ -38,6 +38,15 @@ class FLDatabase implements FLDatabaseInterface
 		self::$driver	=	$driver;
 	}
 	
+	/**
+	 * Call function from drivers
+	 * 
+	 * @access	private
+	 * @static
+	 * @param	string	$name
+	 * @param	mixed	$params
+	 * @return	mixed
+	 */
 	private static function call($name, $params)
 	{
 		// Loads driver
