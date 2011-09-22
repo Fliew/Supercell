@@ -10,7 +10,6 @@ class index
 	 */
 	public function main()
 	{
-		FLLog::clear_log();
 		// Load Template Library
 		load::library('FLTemplate');
 		
