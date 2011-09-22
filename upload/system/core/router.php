@@ -62,7 +62,7 @@ class FLRouter
 		{
 			require_once(SERVER_PATH . 'application/public/controllers/' . $error_path . '.php');
 			
-			$location	=	$this->settings->setting('default_location');
+			$location	=	$this->settings->setting('default_driver');
 			
 			$error_path	=	new $error_path;
 			
@@ -167,7 +167,7 @@ class FLRouter
 		{
 			// Default
 			$return['controller']	=	$this->settings->setting('default_path');
-			$return['function']		=	$this->settings->setting('default_location');
+			$return['function']		=	$this->settings->setting('default_driver');
 			
 			return $return;
 		}
@@ -202,7 +202,7 @@ class FLRouter
 				if (!isset($parts[$this->before_function + 1]) || !($parts[$this->before_function + 1]))
 				{
 					// Default
-					$return['function']	=	$this->settings->setting('default_location');
+					$return['function']	=	$this->settings->setting('default_driver');
 				}
 				else
 				{
@@ -214,7 +214,7 @@ class FLRouter
 					
 					if (!is_callable(array($test_controller, $parts[$this->before_function + 1]), false))
 					{
-						$return['function']	=	$this->settings->setting('default_location');
+						$return['function']	=	$this->settings->setting('default_driver');
 						
 						$return['vars_begin']	=	($this->before_function + 1);
 					}

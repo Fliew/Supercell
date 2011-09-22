@@ -17,10 +17,10 @@
 
 // Assumes your file is in the controllers folder, and ends in .php
 
-$error_path			=	'error';
+$error_path	=	'error';
 
-$default_path		=	'index';
-$default_location	=	'main';
-$path_style			=	'0';
+$default_path	=	'index';
+$default_driver	=	'main';
+$path_style		=	'0';
 
 $htaccess	=	false;
