@@ -49,7 +49,7 @@ class FLRun
 		}
 		catch (FLErrors $e)
 		{
-			echo $e->getMessage();
+			echo $e->handle();
 		}
 		
 		// Set timezone
@@ -78,18 +78,32 @@ class FLRun
 			}
 			catch (FLErrors $e)
 			{
-				echo $e->getMessage();
+				echo $e->handle();
 			}
 			
 			// Load Database Config
 			$database	=	new FLConfig('database');
 			
-			$connection	=	FLDatabase::connect($database->setting('host'), $database->setting('name'), $database->setting('username'), $database->setting('password'));
+			// Try to connect to database
+			try
+			{
+				$connection	=	FLDatabase::connect($database->setting('host'), $database->setting('name'), $database->setting('username'), $database->setting('password'));
+			}
+			catch (FLErrors $e)
+			{
+				echo $e->handle();
+			}
 		}
 		
 		// Loading pages
-		// Get locations
-		$router	=	new FLRouter(true);
+		try
+		{
+			$router	=	new FLRouter(true);
+		}
+		catch (FLErrors $e)
+		{
+			echo $e->handle();
+		}
 		
 		// Do we need to close the database connection?
 		if ($autoload->setting('database') === true && $database->setting('pconnect') === false)

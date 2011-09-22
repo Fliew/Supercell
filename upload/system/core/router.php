@@ -53,6 +53,7 @@ class FLRouter
 	public function error()
 	{
 		$error_path	=	$this->settings->setting('error_path');
+		
 		if (!file_exists(SERVER_PATH . 'application/public/controllers/' . $error_path . '.php'))
 		{
 			throw new FLErrors('Error page not found.');

@@ -18,16 +18,16 @@
 class FLConfig
 {
 	/**
-	 * @var	string
+	 * @access	private
+	 * @var		string
 	 */
 	private $path;
 	
 	/**
-	 * @var	array
+	 * @access	private
+	 * @var		array
 	 */
 	private $variables;
-	
-	private $FLErrors;
 	
 	/**
 	 * Load a config file
@@ -76,69 +76,5 @@ class FLConfig
 		{
 			return $this->variables[$var];
 		}
-	}
-	
-	
-	/**
-	 * THIS WILL INSERT A NEW SETTING INTO THE CONFIG FILE
-	 * 
-	 * @access	public
-	 * @param	string	$setting
-	 * @param	mixed	$value
-	 * @return	void
-	 */
-	public function insert($setting, $value)
-	{
-	}
-	
-	
-	/**
-	 * THIS WILL DELETE A SETTING FROM THE CONFIG FILE
-	 * 
-	 * @access	public
-	 * @param	string	$setting
-	 * @param	mixed	$value
-	 * @return	void
-	 */
-	public function delete($setting)
-	{
-	}
-	
-	/**
-	 * THIS WILL REWRITE THE CONFIG FILE WITH THE SETTINGS NEW VALUE
-	 * 
-	 * @access	public
-	 * @param	string	$setting
-	 * @param	mixed	$value
-	 * @return	void
-	 */
-	public function change($setting, $value)
-	{
-		// Chamge permission
-		chmod($this->path, 0755);
-		
-		$handler	=	fopen($this->path, 'w+');
-		
-		// Did we open the file successfully?
-		if ($handler === false)
-		{
-			FLErrors::handle('core/config', 'An error occured while opening config file to change a setting\'s value.');
-		}
-		else
-		{
-			// Does the variable exist?
-			if (!array_key_exists($var, $this->variables))
-			{
-				FLError::handle('core/config', 'Config variable does not exist so we could not change its value.');
-			}
-			else
-			{
-				$contents	=	fread($handler, filesize($this->path));
-				echo $contents;
-			}
-		}
-		
-		// Close File
-		fclose($handler);
 	}
 }

@@ -24,27 +24,45 @@ class FLLog
 	 * @static
 	 * @param	string	$filename
 	 * @param	string	$message
+	 * @param	boolean	$useFLErrors
 	 * @return	boolean
 	 */
-	public static function create($filename, $message)
+	public static function create($filename, $message, $useFLErrors = true)
 	{
 		$autoload_config	=	new FLConfig('autoload');
 		
 		if ($autoload_config->setting('logs'))
 		{
+			if (file_exists(LOGS_PATH . $filename))
+			{
+				$temp_message	=	$message;
+				$message		=	file_get_contents(LOGS_PATH . $filename);
+				$message		.=	$temp_message;
+			}
+			
 			$handle	=	fopen(LOGS_PATH . $filename, 'w');
 		
 			if (!$handle = fopen(LOGS_PATH . $filename, 'w'))
 			{
 				// Could not open file
+				if ($useFLErrors)
+				{
+					throw new FLErrors('Could not open file ' . $filename);
+				}
+				
 				return false;
 			}
-		
+			
 			$message	.=	"\n";
-		
+			
 			if (fwrite($handle, $message) === false)
 			{
 				// Could not write to file
+				if ($useFLErrors)
+				{
+					throw new FLErrors('Could not write to file ' . $filename);
+				}
+				
 				return false;
 			}
 		
@@ -54,7 +72,32 @@ class FLLog
 		}
 		else
 		{
+			// We are not logging
 			return false;
+		}
+	}
+	
+	/**
+	 * Clear logs
+	 * 
+	 * @access	public
+	 * @static
+	 * @param	string	$filename		If left empty we will clear all logs.
+	 * @return	void
+	 */
+	public static function clear_log($filename = '')
+	{
+		if (!$filename)
+		{
+			// Delete all files
+			foreach (glob(LOGS_PATH . '*') as $file)
+			{
+				unlink($file);
+			}
+		}
+		else
+		{
+			unlink(LOGS_PATH . $filename);
 		}
 	}
 }

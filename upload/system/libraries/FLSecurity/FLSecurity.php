@@ -58,7 +58,7 @@ class FLSecurity implements FLSecurityInterface
 		// Well that doesn't make any sense...
 		if ($min > $max)
 		{
-			FLErrors::handle('fm_security salt', 'Min length was larger than max.');
+			throw new FLError('Min length was larger than max.');
 		}
 		else
 		{

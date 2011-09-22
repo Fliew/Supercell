@@ -10,15 +10,9 @@ class index
 	 */
 	public function main()
 	{
+		FLLog::clear_log();
 		// Load Template Library
-		try
-		{
-			load::library('FLTemplate');
-		}
-		catch (FLErrors $e)
-		{
-			echo $e->getMessage();
-		}
+		load::library('FLTemplate');
 		
 		// Creates our template object
 		$template	=	new FLTemplate;
