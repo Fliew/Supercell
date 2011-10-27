@@ -15,7 +15,7 @@
  * @category	core
  */
 
-class FLLog
+class FLog
 {
 	/**
 	 * Log information
@@ -24,12 +24,12 @@ class FLLog
 	 * @static
 	 * @param	string	$filename
 	 * @param	string	$message
-	 * @param	boolean	$useFLErrors
+	 * @param	boolean	$useFErrors
 	 * @return	boolean
 	 */
-	public static function create($filename, $message, $useFLErrors = true)
+	public static function create($filename, $message, $useFErrors = true)
 	{
-		$autoload_config	=	new FLConfig('autoload');
+		$autoload_config	=	new FConfig('autoload');
 		
 		if ($autoload_config->setting('logs'))
 		{
@@ -45,9 +45,9 @@ class FLLog
 			if (!$handle = fopen(LOGS_PATH . $filename, 'w'))
 			{
 				// Could not open file
-				if ($useFLErrors)
+				if ($useFErrors)
 				{
-					throw new FLErrors('Could not open file ' . $filename);
+					throw new FErrors('Could not open file ' . $filename);
 				}
 				
 				return false;
@@ -58,9 +58,9 @@ class FLLog
 			if (fwrite($handle, $message) === false)
 			{
 				// Could not write to file
-				if ($useFLErrors)
+				if ($useFErrors)
 				{
-					throw new FLErrors('Could not write to file ' . $filename);
+					throw new FErrors('Could not write to file ' . $filename);
 				}
 				
 				return false;

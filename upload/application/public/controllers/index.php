@@ -11,10 +11,10 @@ class index
 	public function main()
 	{
 		// Load Template Library
-		load::library('FLTemplate');
+		load::library('FTemplate');
 		
 		// Creates our template object
-		$template	=	new FLTemplate;
+		$template	=	new FTemplate;
 		
 		// Display a body
 		$template->smarty->display('welcome.html');

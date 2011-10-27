@@ -15,7 +15,7 @@
  * @category	core
  */
 
-class FLConfig
+class FConfig
 {
 	/**
 	 * @access	private
@@ -47,7 +47,7 @@ class FLConfig
 		if (!file_exists($this->path))
 		{
 			// Handle Error
-			throw new FLErrors('Could not load config file, the file "' . $this->path . '" could not be found.');
+			throw new FErrors('Could not load config file, the file "' . $this->path . '" could not be found.');
 		}
 		else
 		{
@@ -70,7 +70,7 @@ class FLConfig
 		// Check if this variable exists
 		if (!array_key_exists($var, $this->variables))
 		{
-			throw new FLErrors('Config variable does not exist.');
+			throw new FErrors('Config variable does not exist.');
 		}
 		else
 		{

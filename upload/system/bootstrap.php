@@ -64,4 +64,4 @@ require(SERVER_PATH . 'system/core/load.php');
 require(SERVER_PATH . 'system/core/router.php');
 require(SERVER_PATH . 'system/core/run.php');
 
-FLRun::start();
+FRun::start();

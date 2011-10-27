@@ -1,0 +1,21 @@
+Mon, 17 Oct 2011 13:54:30 -0600
+Message: Could not open file
+Code: 0
+File: /Users/rileywiebe/Projects/Server/Software/Supercell/Supercell/upload/system/libraries/FLLanguage/FLLanguage.php
+Line: 110
+Trace: 
+#0 /Users/rileywiebe/Projects/Server/Software/Supercell/Supercell/upload/system/libraries/FLLanguage/FLLanguage.php(62): FLLanguage::cache('/Users/rileywie...', 'en', 3600)
+#1 /Users/rileywiebe/Projects/Server/Software/Supercell/Supercell/upload/system/libraries/FLTemplate/drivers/smarty/plugins/function.language.php(22): FLLanguage::display('welcome')
+#2 /Users/rileywiebe/Projects/Server/Software/Supercell/Supercell/upload/application/cache/template_compile/6cfb42f92d47ce8d3e2e693ceca5dd0418935d81.file.welcome.html.cache.php(21): smarty_function_language(Array, Object(Smarty_Internal_Template))
+#3 /Users/rileywiebe/Projects/Server/Software/Supercell/Supercell/upload/system/libraries/FLTemplate/drivers/smarty/sysplugins/smarty_internal_template.php(432): include('/Users/rileywie...')
+#4 /Users/rileywiebe/Projects/Server/Software/Supercell/Supercell/upload/system/libraries/FLTemplate/drivers/smarty/sysplugins/smarty_internal_template.php(567): Smarty_Internal_Template->renderTemplate()
+#5 /Users/rileywiebe/Projects/Server/Software/Supercell/Supercell/upload/system/libraries/FLTemplate/drivers/smarty/Smarty.class.php(338): Smarty_Internal_Template->getRenderedTemplate()
+#6 /Users/rileywiebe/Projects/Server/Software/Supercell/Supercell/upload/system/libraries/FLTemplate/drivers/smarty/Smarty.class.php(382): Smarty->fetch('welcome.html', NULL, NULL, NULL, true)
+#7 /Users/rileywiebe/Projects/Server/Software/Supercell/Supercell/upload/application/public/controllers/index.php(20): Smarty->display('welcome.html')
+#8 /Users/rileywiebe/Projects/Server/Software/Supercell/Supercell/upload/system/core/router.php(109): index->main()
+#9 /Users/rileywiebe/Projects/Server/Software/Supercell/Supercell/upload/system/core/router.php(42): FLRouter->controller('index', 'main')
+#10 /Users/rileywiebe/Projects/Server/Software/Supercell/Supercell/upload/system/core/run.php(101): FLRouter->__construct(true)
+#11 /Users/rileywiebe/Projects/Server/Software/Supercell/Supercell/upload/system/bootstrap.php(67): FLRun::start()
+#12 /Users/rileywiebe/Projects/Server/Software/Supercell/Supercell/upload/index.php(18): require('/Users/rileywie...')
+#13 {main}
+

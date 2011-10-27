@@ -16,7 +16,7 @@
  */
 
 // fm_core_run
-class FLRun
+class FRun
 {
 	/**
 	 * Starts the framework
@@ -45,9 +45,9 @@ class FLRun
 		// Loads autoload config
 		try
 		{
-			$autoload	=	new FLConfig('autoload');
+			$autoload	=	new FConfig('autoload');
 		}
-		catch (FLErrors $e)
+		catch (FErrors $e)
 		{
 			echo $e->handle();
 		}
@@ -74,22 +74,22 @@ class FLRun
 			// Start Database Connection
 			try
 			{
-				load::library('FLDatabase');
+				load::library('FDatabase');
 			}
-			catch (FLErrors $e)
+			catch (FErrors $e)
 			{
 				echo $e->handle();
 			}
 			
 			// Load Database Config
-			$database	=	new FLConfig('database');
+			$database	=	new FConfig('database');
 			
 			// Try to connect to database
 			try
 			{
-				$connection	=	FLDatabase::connect($database->setting('host'), $database->setting('name'), $database->setting('username'), $database->setting('password'));
+				$connection	=	FDatabase::connect($database->setting('host'), $database->setting('name'), $database->setting('username'), $database->setting('password'));
 			}
-			catch (FLErrors $e)
+			catch (FErrors $e)
 			{
 				echo $e->handle();
 			}
@@ -98,9 +98,9 @@ class FLRun
 		// Loading pages
 		try
 		{
-			$router	=	new FLRouter(true);
+			$router	=	new FRouter(true);
 		}
-		catch (FLErrors $e)
+		catch (FErrors $e)
 		{
 			echo $e->handle();
 		}
@@ -109,7 +109,7 @@ class FLRun
 		if ($autoload->setting('database') === true && $database->setting('pconnect') === false)
 		{
 			// Close the database connection
-			FLDatabase::close($connection);
+			FDatabase::close($connection);
 		}
 	}
 }

@@ -18,6 +18,17 @@
 class load
 {
 	/**
+	 * Load all the standard libraries
+	 * 
+	 * @access	public
+	 * @return	void
+	 */
+	public static function stdlib()
+	{
+		
+	}
+	
+	/**
 	 * Load a system library
 	 * 
 	 * @access	public
@@ -33,7 +44,7 @@ class load
 		if (!file_exists($path))
 		{
 			// Send error
-			throw new FLErrors('Library "' . $name . '" not found.');
+			throw new FErrors('Library "' . $name . '" not found.');
 		}
 		else
 		{
@@ -75,7 +86,7 @@ class load
 		if (!file_exists($path))
 		{
 			// Send error
-			throw new FLErrors('Application library "' . $name . '" not found.');
+			throw new FErrors('Application library "' . $name . '" not found.');
 		}
 		else
 		{

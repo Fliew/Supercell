@@ -15,7 +15,7 @@
  * @category	core
  */
 
-class FLErrors extends Exception
+class FErrors extends Exception
 {
 	/**
 	 * @access	private
@@ -92,7 +92,7 @@ class FLErrors extends Exception
 								. 'Line: ' . parent::getLine() . "\n"
 								. 'Trace: ' . "\n" . parent::getTraceAsString() . "\n";
 			
-			FLLog::create('SupercellErrors.log', $log_message);
+			FLog::create('SupercellErrors.log', $log_message);
 		}
 		
 		if ($this->setting('debug'))

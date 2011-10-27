@@ -15,7 +15,7 @@
  * @category	core
  */
 
-class FLRouter
+class FRouter
 {
 	/**
 	 * @var	string
@@ -31,7 +31,7 @@ class FLRouter
 	public function __construct($init = false)
 	{
 		// Settings
-		$this->settings	=	new FLConfig('paths');
+		$this->settings	=	new FConfig('paths');
 		
 		$locations	=	$this->get_locations();
 		
@@ -56,7 +56,7 @@ class FLRouter
 		
 		if (!file_exists(SERVER_PATH . 'application/public/controllers/' . $error_path . '.php'))
 		{
-			throw new FLErrors('Error page not found.');
+			throw new FErrors('Error page not found.');
 		}
 		else
 		{
@@ -294,7 +294,7 @@ class FLRouter
 	public function get_vars($vars = '', $vars_begin = '')
 	{
 		// Settings
-		$settings	=	new FLConfig('paths');
+		$settings	=	new FConfig('paths');
 				
 		// Style = index.php/folder/controller/model/value/value
 		if ($settings->setting('path_style') == '0')
