@@ -15,7 +15,7 @@
  * @category	core
  */
 
-class load
+class load implements loadInterface
 {
 	/**
 	 * Load all the standard libraries

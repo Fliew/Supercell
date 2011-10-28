@@ -18,36 +18,48 @@
 class FCache implements FCacheInterface
 {
 	/**
+	 * @author	Riley Wiebe
+	 * 
 	 * @access	private
 	 * @var		string
 	 */
 	private $filename;
 	
 	/**
+	 * @author	Riley Wiebe
+	 * 
 	 * @access	private
 	 * @var		string
 	 */
 	private $path;
 	
 	/**
+	 * @author	Riley Wiebe
+	 * 
 	 * @access	private
 	 * @var		string
 	 */
 	private $file;
 	
 	/**
+	 * @author	Riley Wiebe
+	 * 
 	 * @access	private
 	 * @var		integer
 	 */
 	private $ttl;
 	
 	/**
+	 * @author	Riley Wiebe
+	 * 
 	 * @access	private
 	 * @var		boolean
 	 */
 	private $cache;
 	
 	/**
+	 * @author	Riley Wiebe
+	 * 
 	 * @access	private
 	 * @var		boolean
 	 */
@@ -55,6 +67,8 @@ class FCache implements FCacheInterface
 	
 	/**
 	 * Begin Cache
+	 * 
+	 * @author	Riley Wiebe
 	 * 
 	 * @access	public
 	 * @param	string	$filename
@@ -79,7 +93,7 @@ class FCache implements FCacheInterface
 			// Does the path exist
 			if (!is_dir($this->path))
 			{
-				throw new FErrors('Folder ' . $this->path . ' does not exist.')
+				throw new FErrors('Folder ' . $this->path . ' does not exist.');
 			}
 		
 			$config	=	new FConfig('cache');
@@ -99,6 +113,8 @@ class FCache implements FCacheInterface
 	
 	/**
 	 * Check if there is a valid cached file
+	 * 
+	 * @author	Riley Wiebe
 	 * 
 	 * @access	public
 	 * @return	boolean
@@ -132,6 +148,8 @@ class FCache implements FCacheInterface
 	/**
 	 * Start caching data
 	 * 
+	 * @author	Riley Wiebe
+	 * 
 	 * @access	public
 	 * @return	void
 	 */
@@ -147,6 +165,8 @@ class FCache implements FCacheInterface
 	
 	/**
 	 * Stop caching data
+	 * 
+	 * @author	Riley Wiebe
 	 * 
 	 * @access	public
 	 * @return	void
@@ -167,7 +187,7 @@ class FCache implements FCacheInterface
 			}
 			else
 			{
-				throw new FErrors('Could not end a cache session that hasn\'t been started.')
+				throw new FErrors('Could not end a cache session that hasn\'t been started.');
 			}
 		}
 	}
@@ -175,16 +195,29 @@ class FCache implements FCacheInterface
 	/**
 	 * Display cached file
 	 * 
+	 * @author	Riley Wiebe
+	 * 
 	 * @access	public
-	 * @return	string
+	 * @return	boolean
 	 */
 	public function display()
 	{
-		include($this->file);
+		if (file_exists($this->file))
+		{
+			include($this->file);
+			
+			return true;
+		}
+		else
+		{
+			return false;
+		}
 	}
 	
 	/**
 	 * Clear cached file if exists
+	 * 
+	 * @author	Riley Wiebe
 	 * 
 	 * @access	public
 	 * @return	boolean

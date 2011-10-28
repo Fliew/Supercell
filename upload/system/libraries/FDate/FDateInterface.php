@@ -20,6 +20,8 @@ interface FDateInterface
 	/**
 	 * Creates a European date style
 	 * 
+	 * @author	Riley Wiebe
+	 * 
 	 * @access	public
 	 * @static
 	 * @param	integer	$time_stamp
@@ -35,6 +37,8 @@ interface FDateInterface
 	/**
 	 * Creates a European date style
 	 * 
+	 * @author	Riley Wiebe
+	 * 
 	 * @access	public
 	 * @static
 	 * @param	integer	$time_stamp
@@ -46,6 +50,8 @@ interface FDateInterface
 	
 	/**
 	 * Creates an American numeric date style
+	 * 
+	 * @author	Riley Wiebe
 	 * 
 	 * @access	public
 	 * @static
@@ -60,6 +66,8 @@ interface FDateInterface
 	
 	/**
 	 * Creates a American numeric date style
+	 * 
+	 * @author	Riley Wiebe
 	 * 
 	 * @access	public
 	 * @static

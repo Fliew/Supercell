@@ -20,6 +20,15 @@ interface FActionInterface
 	/**
 	 * Get variables
 	 * 
+	 * @deprecated	since 2.2.1.26 (1da88)
+	 * 
+	 * This should can't be used. Variables should be gathered
+	 * using the first parameter of your method.
+	 * 
+	 * @link	https://github.com/Fliew/Supercell/wiki/URL-Variables
+	 * 
+	 * @author	Riley Wiebe
+	 * 
 	 * @access	public
 	 * @return	array
 	 */
@@ -27,6 +36,8 @@ interface FActionInterface
 	
 	/**
 	 * Creates a url with the correct path
+	 * 
+	 * @author	Riley Wiebe
 	 * 
 	 * @access	public
 	 * @param	string	$url		ex: test/test
@@ -38,6 +49,8 @@ interface FActionInterface
 	/**
 	 * HTML meta redirect
 	 * 
+	 * @author	Riley Wiebe
+	 * 
 	 * @access	public
 	 * @param	string	$url
 	 * @param	integer	$time
@@ -48,6 +61,8 @@ interface FActionInterface
 	/**
 	 * PHP redirect
 	 * 
+	 * @author	Riley Wiebe
+	 * 
 	 * @access	public
 	 * @param	string	$url
 	 * @return	void
@@ -57,6 +72,8 @@ interface FActionInterface
 	/**
 	 * Gets page data.
 	 * Works well for version checks.
+	 * 
+	 * @author	Riley Wiebe
 	 * 
 	 * @access	public
 	 * @param	string	$url

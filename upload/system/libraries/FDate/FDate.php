@@ -20,6 +20,8 @@ class FDate implements FDateInterface
 	/**
 	 * Creates a European date style
 	 * 
+	 * @author	Riley Wiebe
+	 * 
 	 * @access	public
 	 * @static
 	 * @param	integer	$time_stamp
@@ -50,6 +52,8 @@ class FDate implements FDateInterface
 	/**
 	 * Creates a European date style
 	 * 
+	 * @author	Riley Wiebe
+	 * 
 	 * @access	public
 	 * @static
 	 * @param	integer	$time_stamp
@@ -67,6 +71,8 @@ class FDate implements FDateInterface
 
 	/**
 	 * Creates an American numeric date style
+	 * 
+	 * @author	Riley Wiebe
 	 * 
 	 * @access	public
 	 * @static
@@ -95,6 +101,8 @@ class FDate implements FDateInterface
 
 	/**
 	 * Creates a American numeric date style
+	 * 
+	 * @author	Riley Wiebe
 	 * 
 	 * @access	public
 	 * @static

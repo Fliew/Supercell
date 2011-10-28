@@ -15,7 +15,7 @@
  * @category	core
  */
 
-class FErrors extends Exception
+class FErrors extends Exception implements FErrorsInterface
 {
 	/**
 	 * @access	private

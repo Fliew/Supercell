@@ -109,6 +109,12 @@ if (is_dir($source_dir))
 			// Update version
 			$matches[$_SERVER['argv']['1']]++;
 			
+			// Sets everything below to be 0
+			for ($i = ($_SERVER['argv']['1'] + 1); $i <= 3; $i++)
+			{
+				$matches[$i]	=	'0';
+			}
+			
 			// Update build
 			$matches['4']++;
 			

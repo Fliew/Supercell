@@ -15,7 +15,7 @@
  * @category	core
  */
 
-class FConfig
+class FConfig implements FConfigInterface
 {
 	/**
 	 * @access	private
@@ -32,9 +32,11 @@ class FConfig
 	/**
 	 * Load a config file
 	 * 
+	 * @author	Riley Wiebe
+	 * 
 	 * @access	public
-	 * @param	strong	$file
-	 * @return	
+	 * @param	string	$file
+	 * @return	void
 	 */
 	public function __construct($file)
 	{
@@ -60,6 +62,8 @@ class FConfig
 	
 	/**
 	 * Returns a config variable's value
+	 * 
+	 * @author	Riley Wiebe
 	 * 
 	 * @access	public
 	 * @param	string	$var

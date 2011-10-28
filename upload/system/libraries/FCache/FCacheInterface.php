@@ -20,6 +20,8 @@ interface FCacheInterface
 	/**
 	 * Begin Cache
 	 * 
+	 * @author	Riley Wiebe
+	 * 
 	 * @access	public
 	 * @param	string	$filename
 	 * @param	integer	$ttl		Override Config TTL
@@ -30,6 +32,8 @@ interface FCacheInterface
 	/**
 	 * Check if there is a valid cached file
 	 * 
+	 * @author	Riley Wiebe
+	 * 
 	 * @access	public
 	 * @return	boolean
 	 */
@@ -37,6 +41,8 @@ interface FCacheInterface
 	
 	/**
 	 * Start caching data
+	 * 
+	 * @author	Riley Wiebe
 	 * 
 	 * @access	public
 	 * @return	void
@@ -46,6 +52,8 @@ interface FCacheInterface
 	/**
 	 * Stop caching data
 	 * 
+	 * @author	Riley Wiebe
+	 * 
 	 * @access	public
 	 * @return	void
 	 */
@@ -54,13 +62,17 @@ interface FCacheInterface
 	/**
 	 * Display cached file
 	 * 
+	 * @author	Riley Wiebe
+	 * 
 	 * @access	public
-	 * @return	void
+	 * @return	boolean
 	 */
 	public function display();
 	
 	/**
 	 * Clear cached file if exists
+	 * 
+	 * @author	Riley Wiebe
 	 * 
 	 * @access	public
 	 * @return	boolean

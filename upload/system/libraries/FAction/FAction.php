@@ -20,21 +20,27 @@ class FAction implements FActionInterface
 	/**
 	 * Get variables
 	 * 
+	 * @deprecated	since 2.2.1.26 (1da88)
+	 * 
+	 * This should can't be used. Variables should be gathered
+	 * using the first parameter of your method.
+	 * 
+	 * @link	https://github.com/Fliew/Supercell/wiki/URL-Variables
+	 * 
+	 * @author	Riley Wiebe
+	 * 
 	 * @access	public
 	 * @return	array
 	 */
 	public static function get_vars()
 	{
-		$router	=	new FRouter;
-		
-		$locations	=	$router->get_locations();
-		$vars_array	=	$router->get_vars($locations['vars'], $locations['vars_begin']);
-		
-		return $vars_array;
+		return null;
 	}
 	
 	/**
 	 * Creates a url with the correct path
+	 * 
+	 * @author	Riley Wiebe
 	 * 
 	 * @access	public
 	 * @param	string	$url		ex: test/test
@@ -88,6 +94,8 @@ class FAction implements FActionInterface
 	/**
 	 * HTML meta redirect
 	 * 
+	 * @author	Riley Wiebe
+	 * 
 	 * @access	public
 	 * @param	string	$url
 	 * @param	integer	$time
@@ -95,13 +103,15 @@ class FAction implements FActionInterface
 	 */
 	public static function redirect($url, $time = 0)
 	{
-		$redirect	=	'<meta http-equiv="refresh" content="' . $time . '; url=' . $path . '" />';
+		$redirect	=	'<meta http-equiv="refresh" content="' . $time . '; url=' . $url . '" />';
 		
 		return $redirect;
 	}
 	
 	/**
 	 * PHP redirect
+	 * 
+	 * @author	Riley Wiebe
 	 * 
 	 * @access	public
 	 * @param	string	$url
@@ -115,6 +125,8 @@ class FAction implements FActionInterface
 	/**
 	 * Gets page data.
 	 * Works well for version checks.
+	 * 
+	 * @author	Riley Wiebe
 	 * 
 	 * @access	public
 	 * @param	string	$url
@@ -139,7 +151,7 @@ class FAction implements FActionInterface
 		}
 		else
 		{
-			die('Supercell System Action Error: Can not use this function because you need CURL installed.');
+			throw new FErrors('CURL is not installed.');
 		}
 	}
 }

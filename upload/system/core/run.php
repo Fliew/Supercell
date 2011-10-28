@@ -15,13 +15,13 @@
  * @category	core
  */
 
-// fm_core_run
-class FRun
+class FRun implements FRunInterface
 {
 	/**
 	 * Starts the framework
 	 * 
 	 * @author	Riley Wiebe
+	 * 
 	 * @access	public
 	 * @return	void
 	 */
@@ -98,7 +98,7 @@ class FRun
 		// Loading pages
 		try
 		{
-			$router	=	new FRouter(true);
+			$router	=	new FRouter();
 		}
 		catch (FErrors $e)
 		{

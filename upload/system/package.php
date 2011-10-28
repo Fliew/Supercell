@@ -1,5 +1,5 @@
 <?php
 /**
  * @author	Fliew
- * @version	2.2.1.26 (1da88) 1319748296
+ * @version	2.3.0.27 (7bb5a) 1319773120
  */

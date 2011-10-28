@@ -15,7 +15,7 @@
  * @category	core
  */
 
-class FLog
+class FLog implements FLogInterface
 {
 	/**
 	 * Log information

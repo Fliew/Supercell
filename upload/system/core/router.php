@@ -15,108 +15,79 @@
  * @category	core
  */
 
-class FRouter
+/*
+ * Version 2 of FLRouter
+ */
+class FRouter implements FRouterInterface
 {
 	/**
-	 * @var	string
+	 * The default path the the controllers
+	 * 
+	 * @author	Riley Wiebe
+	 * 
+	 * @access	private
+	 * @var		string
+	 */
+	private $controller_path;
+	
+	/**
+	 * Hold the settings for the router.
+	 * 
+	 * @author	Riley Wiebe
+	 * 
+	 * @access	private
+	 * @var		array
 	 */
 	private $settings;
 	
 	/**
-	 * Router constructor
+	 * Is the exception thrown to be handled as an error
+	 * 
+	 * @access	private
+	 * @var		boolean
+	 */
+	private $handle_exceptions;
+	
+	/**
+	 * Prepare the router
+	 * 
+	 * @author	Riley Wiebe
 	 * 
 	 * @access	public
 	 * @return	void
 	 */
-	public function __construct($init = false)
+	public function __construct()
 	{
-		// Settings
-		$this->settings	=	new FConfig('paths');
+		// Do we want to handle the exception thrown
+		$this->handle_exception = true;
 		
-		$locations	=	$this->get_locations();
+		// Set default path
+		$this->controller_path	=	SERVER_PATH . 'application/public/controllers/';
 		
-		if ($init === true)
+		// Get settings
+		$this->settings = new FConfig('paths');
+		
+		// Gets our controller and driver
+		try
 		{
-			if (isset($locations['controller']) && isset($locations['function']))
+			$url_parts = $this->get_driver();
+		}
+		catch (FErrors $e)
+		{
+			// Handle Error
+			if ($this->handle_exception)
 			{
-				$this->controller($locations['controller'], $locations['function']);
+				$e->handle();
 			}
 		}
 	}
 	
 	/**
-	 * Handles error page
+	 * Gets the URL path.
 	 * 
-	 * @access	public
-	 * @return	void
-	 */
-	public function error()
-	{
-		$error_path	=	$this->settings->setting('error_path');
-		
-		if (!file_exists(SERVER_PATH . 'application/public/controllers/' . $error_path . '.php'))
-		{
-			throw new FErrors('Error page not found.');
-		}
-		else
-		{
-			require_once(SERVER_PATH . 'application/public/controllers/' . $error_path . '.php');
-			
-			$location	=	$this->settings->setting('default_driver');
-			
-			$error_path	=	new $error_path;
-			
-			$error_path->$location();
-			
-			exit;
-		}
-	}
-	
-	/**
-	 * Handles page requests.
+	 * @author	Riley Wiebe
 	 * 
-	 * @access	public
-	 * @param	string	$path			File Path
-	 * @param	string	$location		Subpath
-	 * @return	void
-	 */
-	public function controller($path, $location)
-	{
-		// Handles bad requests
-		if (!file_exists(SERVER_PATH . 'application/public/controllers/' . $path . '.php'))
-		{
-			$this->error();
-		}
-		else
-		{
-			// Getting the file.
-			require_once(SERVER_PATH . 'application/public/controllers/' . $path . '.php');
-			
-			// Creates class.
-			// Takes last part if there are slashes.
-			$path	=	explode('/', $path);
-			$path	=	end($path);
-						
-			$page	=	new $path;
-			
-			// Does the location exist?
-			if (!is_callable(array($page, $location), false))
-			{
-				$this->error();
-			}
-			else
-			{
-				$page->$location();
-				
-				return;
-			}
-		}
-	}
-	
-	/**
-	 * Allows us to grab the page path.
-	 * 
-	 * @access	public
+	 * @access	private
 	 * @return	void
 	 */
 	private function get_path()
@@ -154,249 +125,173 @@ class FRouter
 	}
 	
 	/**
-	 * Gets all our controllers and model information
+	 * Gets the controller and driver
 	 * 
-	 * @access	public
+	 * @author	Riley Wiebe
+	 * 
+	 * @access	private
 	 * @return	array
 	 */
-	public function get_locations()
+	private function get_driver()
 	{
+		// The full path
 		$path	=	$this->get_path();
 		
+		$values	=	array(
+			'controller'	=>	'', // The controller we will look at
+			'driver'		=>	'' // The driver that needs to be run
+		);
+		
+		// Check if the path is empty
 		if (!trim($path, '/'))
 		{
-			// Default
-			$return['controller']	=	$this->settings->setting('default_path');
-			$return['function']		=	$this->settings->setting('default_driver');
-			
-			return $return;
+			// Shows the default page.
+			$controller['controller']	=	$this->settings->setting('default_path');
+			$controller['driver']		=	$this->settings->setting('default_driver');
 		}
 		else
 		{
-			// There appears to be something here...
+			// Remove slash
 			$path	=	trim($path, '/');
 			
+			// Split path into its parts
 			$parts	=	explode('/', $path);
 			
-			// Remove item in the array
-			if ($path[0] == '/')
+			// Attempt to get our controller
+			$controller	=	$this->get_controller($parts);
+		}
+		
+		// Get the controller file
+		require_once($this->controller_path . $controller['controller_directory'] . $controller['controller'] . '.php');
+		
+		// Create controller object
+		$object	=	new $controller['controller'];
+	
+		// Do we have the correct driver?
+		if (!is_callable(array($object, $controller['possible_driver']), false))
+		{
+			// Set driver to default
+			$driver = $this->settings->setting('default_driver');
+		
+			// Add to queue
+			if (is_array($controller['variables']))
 			{
-				array_shift($parts);
-			}
-			
-			// We will call a controller file before a subfolder.
-			// Lets see if it exists.
-			$controller			=	$this->get_controller($parts);
-			$controller_file	=	explode('/', $controller);
-			$controller_file	=	end($controller_file);
-			
-			if ($controller === false)
-			{
-				$this->error();
-			}
-			else
-			{
-				$return['controller']	=	$controller;
-				
-				// Now we need to get the function.
-				if (!isset($parts[$this->before_function + 1]) || !($parts[$this->before_function + 1]))
-				{
-					// Default
-					$return['function']	=	$this->settings->setting('default_driver');
-				}
-				else
-				{
-					require_once(SERVER_PATH . 'application/public/controllers/' . $controller . '.php');
-					
-					// It appears there is something there...
-					// Lets see if the function exists
-					$test_controller	=	new $controller_file;
-					
-					if (!is_callable(array($test_controller, $parts[$this->before_function + 1]), false))
-					{
-						$return['function']	=	$this->settings->setting('default_driver');
-						
-						$return['vars_begin']	=	($this->before_function + 1);
-					}
-					else
-					{
-						$return['function']		=	$parts[$this->before_function + 1];
-						
-						$return['vars_begin']	=	($this->before_function + 2);
-					}
-				}
-				
-				$return['vars']			=	$parts;
-				
-				return $return;
+				array_unshift($controller['variables'], $controller['possible_driver']);
 			}
 		}
+		else
+		{
+			// Set driver to our guess
+			$driver = $controller['possible_driver'];
+		}
+	
+		// Run driver and passes variables
+		$object->$driver($controller['variables']);
+		
+		return $values;
 	}
 	
 	/**
-	 * Looking for the controller
+	 * Tries to get the controller and the driver
 	 * 
-	 * @access	public
+	 * @author	Riley Wiebe
+	 * 
+	 * @access	private
+	 * @throws	FErrors
 	 * @param	array	$parts
-	 * @param	string	$folders
-	 * @return	mixed
+	 * @param	string	$directory		The directory to look for inside controllers
+	 * @return	array
 	 */
-	private function get_controller($parts, $folders = '')
+	private function get_controller($parts, $directories = '')
 	{
-		$path	=	SERVER_PATH . 'application/public/controllers/' . $folders;
+		// Path to the controllers
+		$path	=	$this->controller_path . $directories;
 		
-		if (isset($parts))
+		// Does the current directory exist.
+		if (is_dir($path))
 		{
-			if (file_exists($path . $parts[0] . '.php'))
+			// Check to see if this is the controller
+			if (file_exists($path . $parts['0'] . '.php'))
 			{
-				// We have a controller
-				return $folders . $parts[0];
+				// Set controller
+				$controller = $parts['0'];
+				
+				// Check if there is another peice in the array
+				if (!$parts['1'])
+				{
+					// Set the driver to default
+					$possible_driver	=	$this->settings->setting('default_driver');
+				}
+				else
+				{
+					// Maybe this is our driver, maybe its a variable
+					$possible_driver	=	$parts['1'];
+				}
+				
+				// Get variables
+				array_shift($parts);
+				array_shift($parts);
+				
+				// Returns path to the controller and the possible driver.
+				$values	=	array(
+					'controller'			=>	$controller,
+					'controller_directory'	=>	$directories,
+					'possible_driver'		=>	$possible_driver,
+					'variables'				=>	$parts
+				);
+				
+				return $values;
 			}
 			else
 			{
-				// We don't have a controller yet
-				// Lets see if a folder exists...
-				if (file_exists($path . $parts[0]))
+				// Check to see if parts[0] is a directory
+				if (is_dir($path . $parts['0']))
 				{
-					// A folder exists so we will dig deeper.
-					$add_path				=	$parts[0];
-					
-					$shift_parts			=	array_shift($parts);
-					
-					$this->before_function	=	($this->before_function + 1);
-					
-					$controller				=	$this->get_controller($parts, $folders . $add_path . '/');
+					if (empty($parts))
+					{
+						$controller['controller_directory']	=	$directories;
+						$controller['controller']			=	$this->settings->setting('default_driver');
+						
+						if (file_exists($path . $parts['0'] . '.php'))
+						{
+							return $controller;
+						}
+						else
+						{
+							$controller['controller_directory'] = '';
+							$controller['controller'] = 'error';
+						}
+						
+						return $controller;
+					}
+					else
+					{
+						// Check the new directory for the controller.
+						$next_path	=	$directories . $parts[0] . '/';
+
+						// Remove the first item in parts, it is no longer needed.
+						$shift_parts			=	array_shift($parts);
+
+						$this->before_function	=	($this->before_function + 1);
+
+						$controller				=	$this->get_controller($parts, $next_path);
+
+						return $controller;
+					}
+				}
+				else
+				{
+					// Page not found
+					$controller['controller_directory'] = '';
+					$controller['controller'] = 'error';
 					
 					return $controller;
 				}
-				else
-				{
-					// This doesn't exist... 404
-					$this->error();
-					return false;
-				}
 			}
 		}
 		else
 		{
-			return $folders . $this->settings->setting('default_path');
-		}
-	}
-	
-	/**
-	 * Gets variables
-	 * 
-	 * @access	public
-	 * @param	array	$vars
-	 * @param	integer	$vars_begin
-	 * @return	array
-	 */
-	public function get_vars($vars = '', $vars_begin = '')
-	{
-		// Settings
-		$settings	=	new FConfig('paths');
-				
-		// Style = index.php/folder/controller/model/value/value
-		if ($settings->setting('path_style') == '0')
-		{
-			if (isset($vars[$vars_begin]))
-			{
-				$size	=	sizeof($vars);
-				
-				for ($i = $vars_begin; $i < $size; $i++)
-				{
-					$variables[]	=	$vars[$i];
-				}
-				
-				return $variables;
-			}
-			else
-			{
-				return false;
-			}
-		}
-		
-		// Style = index.php/folder/controller/model/variable/value/another_variable/value/
-		if ($settings->setting('path_style') == '1')
-		{
-			if (isset($vars[$vars_begin]))
-			{
-				$size	=	sizeof($vars);
-				
-				if ($this->is_even($vars_begin))
-				{
-					// Start on even or odd?
-					$even	=	true;
-				}
-				else
-				{
-					$even	=	false;
-				}
-				
-				for ($i = $vars_begin; $i < $size; $i++)
-				{
-					if ($even === true)
-					{
-						if ($this->is_even($i))
-						{
-							$variables[$vars[$i]]	=	$vars[$i + 1];
-						}
-						else
-						{
-							continue;
-						}
-					}
-					else
-					{
-						if ($this->is_even($i))
-						{
-							continue;
-						}
-						else
-						{
-							$variables[$vars[$i]]	=	$vars[$i + 1];
-						}
-					}
-				}
-				
-				return $variables;
-			}
-			else
-			{
-				return false;
-			}
-		}
-		
-		if ($settings->setting('path_style') == '2')
-		{
-			$variables	=	$_GET;
-			
-			return $variables;
-		}
-	}
-	
-	/**
-	 * Is a number even?
-	 * 
-	 * @access	public
-	 * @param	integer	$int
-	 * @return	boolean
-	 */
-	private function is_even($int)
-	{
-		if (!is_int($int))
-		{
-		}
-		else
-		{
-			if ($int&1)
-			{
-				return false;
-			}
-			else
-			{
-				return true;
-			}
+			throw new FErrors('Router error, ' . $path . ' is not a directory.');
 		}
 	}
 }
