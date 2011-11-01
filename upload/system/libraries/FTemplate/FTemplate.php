@@ -19,13 +19,17 @@
 class FTemplate implements FTemplateInterface
 {
 	/**
-	 * @access	public
-	 * @var		mixed
+	 * @author	Riley Wiebe
+	 * 
+	 * @access	private
+	 * @var		Smarty
 	 */
-	public $smarty;
+	private $smarty;
 	
 	/**
 	 * Loads our template data
+	 * 
+	 * @author	Riley Wiebe
 	 * 
 	 * @access	public
 	 * @return	void
@@ -56,5 +60,20 @@ class FTemplate implements FTemplateInterface
 			// Clears all compile files for instant changes.
 			$this->smarty->clear_compiled_tpl();
 		}
+	}
+	
+	/**
+	 * Returns the smarty class with all of your settings.
+	 * 
+	 * @author	Riley Wiebe
+	 * 
+	 * @link	http://www.smarty.net/documentation
+	 * 
+	 * @access	public
+	 * @return	Smarty
+	 */
+	public function template()
+	{
+		return $this->smarty;
 	}
 }

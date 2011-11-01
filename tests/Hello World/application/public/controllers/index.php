@@ -6,10 +6,11 @@ class index
     public function __construct()
     {
         // Load Template Library
-        load::library('FLTemplate');
+        load::library('FTemplate');
 
         // Initialize template object
-        $this->template = new FLTemplate;
+        $template = new FTemplate;
+		$this->template = $template->template();
 
         // Load Application Library HelloWorld
         load::app_library('HelloWorld');
@@ -18,12 +19,12 @@ class index
     public function main()
     {
         // Assign template variables
-        $this->template->smarty->assign(array(
+        $this->template->assign(array(
                 'sayHello' => HelloWorld::sayHello()
             )
         );
 
         // Display our template page
-        $this->template->smarty->display('helloworld.html');
+        $this->template->display('helloworld.html');
     }
 }

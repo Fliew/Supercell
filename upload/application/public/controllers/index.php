@@ -5,6 +5,8 @@ class index
 	/**
 	 * Example main function
 	 * 
+	 * @author	Riley Wiebe
+	 * 
 	 * @access	public
 	 * @return	void
 	 */
@@ -14,9 +16,15 @@ class index
 		load::library('FTemplate');
 		
 		// Creates our template object
-		$template	=	new FTemplate;
+		$init_template	=	new FTemplate;
+		
+		// Creates variable for smarty
+		$template	=	$init_template->template();
 		
 		// Display a body
-		$template->smarty->display('welcome.html');
+		$template->display('welcome.html');
+		
+		// Single line
+		//$init_template->template()->display('welcome.html');
 	}
 }
