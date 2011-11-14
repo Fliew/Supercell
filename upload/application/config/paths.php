@@ -15,12 +15,14 @@
  * @category	config
  */
 
-// Assumes your file is in the controllers folder, and ends in .php
+$additional_dirs_as_vars = true;
 
-$error_path	=	'error';
+// Assumes your file is in the controllers folder, and ends in .php
+$error_path			=	'';
+$error_controller	=	'error';
+$error_driver		=	'main';
 
 $default_path	=	'index';
 $default_driver	=	'main';
-$path_style		=	'0';
 
 $htaccess	=	false;

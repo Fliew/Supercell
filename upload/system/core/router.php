@@ -172,11 +172,24 @@ class FRouter implements FRouterInterface
 		{
 			// Set driver to default
 			$driver = $this->settings->setting('default_driver');
-		
+			
 			// Add to queue
 			if (is_array($controller['variables']))
 			{
 				array_unshift($controller['variables'], $controller['possible_driver']);
+			}
+			
+			// Is the default driver callable?
+			if (!is_callable(array($object, $driver), false))
+			{
+				// No, display error page.
+				$error_path = $this->settings->setting('error_path');
+				$error_controller = $this->settings->setting('error_controller');
+				$driver = $this->settings->setting('error_driver');
+				
+				require_once($this->controller_path . $error_path . $error_controller . '.php');
+				
+				$object = new $error_controller;
 			}
 		}
 		else
@@ -184,7 +197,7 @@ class FRouter implements FRouterInterface
 			// Set driver to our guess
 			$driver = $controller['possible_driver'];
 		}
-	
+		
 		// Run driver and passes variables
 		$object->$driver($controller['variables']);
 		
@@ -282,8 +295,8 @@ class FRouter implements FRouterInterface
 				else
 				{
 					// Page not found
-					$controller['controller_directory'] = '';
-					$controller['controller'] = 'error';
+					$controller['controller_directory'] = $this->settings->setting('error_path');
+					$controller['controller'] = $this->settings->setting('error_controller');
 					
 					return $controller;
 				}
