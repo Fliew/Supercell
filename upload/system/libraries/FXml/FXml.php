@@ -32,26 +32,26 @@ class FXml implements FXmlInterface
 	public static function build($title, $description, $link, $ttl, $values)
 	{
 		// Tue, 04 Aug 2009 12:10:47 +0000
-		$date	=	date('r', time());
+		$date = date('r', time());
 		
-		$rss	=	'';
+		$rss = '';
 		
-		$rss	.=	'<?xml version="1.0" encoding="ISO-8859-1" ?>' . "\n\r";
-		$rss	.=	'<rss version="2.0">' . "\n\r";
-		$rss	.=	'<channel>' . "\n\r";
+		$rss .= '<?xml version="1.0" encoding="ISO-8859-1" ?>' . "\n\r";
+		$rss .= '<rss version="2.0">' . "\n\r";
+		$rss .= '<channel>' . "\n\r";
 		
 		// Lets begin
 		// Basic info.
-		$rss	.=	'<title>' . $title . '</title>' . "\n\r";
-		$rss	.=	'<description>' . $description . '</description>' . "\n\r";
-		$rss	.=	'<link>' . $link . '</link>' . "\n\r";
-		$rss	.=	'<title>' . $date . '</title>' . "\n\r";
-		$rss	.=	'<ttl>' . $ttl . '</ttl>' . "\n\r";
+		$rss .= '<title>' . $title . '</title>' . "\n\r";
+		$rss .= '<description>' . $description . '</description>' . "\n\r";
+		$rss .= '<link>' . $link . '</link>' . "\n\r";
+		$rss .= '<title>' . $date . '</title>' . "\n\r";
+		$rss .= '<ttl>' . $ttl . '</ttl>' . "\n\r";
 		
-		$rss	.=	self::rss_process($values);
+		$rss .= self::rss_process($values);
 		
-		$rss	.=	'</channel>' . "\n\r";
-		$rss	.=	'</rss>' . "\n\r";
+		$rss .= '</channel>' . "\n\r";
+		$rss .= '</rss>' . "\n\r";
 		
 		return $rss;
 	}
@@ -66,22 +66,22 @@ class FXml implements FXmlInterface
 	 */
 	private static function rss_process($values)
 	{
-		$rss	=	'';
+		$rss = '';
 		
 		foreach ($values as $name => $value)
 		{
-			$rss	.=	'<' . $name . '>';
+			$rss .= '<' . $name . '>';
 			
 			if (is_array($value))
 			{
-				$rss	.=	"\n\r" . $this->process($value) . "\n\r";
+				$rss .= "\n\r" . $this->process($value) . "\n\r";
 			}
 			else
 			{
-				$rss	.=	$value;
+				$rss .= $value;
 			}
 			
-			$rss	.=	'</' . $name . '>' . "\n\r";
+			$rss .= '</' . $name . '>' . "\n\r";
 		}
 		
 		return $rss;
@@ -97,7 +97,7 @@ class FXml implements FXmlInterface
 	 */
 	public static function parse($xml)
 	{
-		$return	=	array();
+		$return = array();
 		
 		// Parse XML
 		

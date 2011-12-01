@@ -50,26 +50,26 @@ class FUrl implements FUrlInterface
 	public static function build_url($url, $full_path = false)
 	{
 		// Config
-		$paths	=	new FConfig('paths');
+		$paths = new FConfig('paths');
 		
-		$build_url	=	'';
+		$build_url = '';
 		
 		if ($url['0'] != '/')
 		{
-			$url		=	'/' . $url;
+			$url	 = '/' . $url;
 		}
 		
 		if ($full_path)
 		{
-			$length	=	strlen(WEB_PATH);
+			$length = strlen(WEB_PATH);
 			
 			if ($url[$length - 1] == '/')
 			{
-				$full_path_url	=	substr(WEB_PATH, 0, -1);
+				$full_path_url = substr(WEB_PATH, 0, -1);
 			}
 			else
 			{
-				$full_path_url	=	WEB_PATH;
+				$full_path_url = WEB_PATH;
 			}
 			
 			$build_url	.=	$full_path_url;
@@ -81,11 +81,11 @@ class FUrl implements FUrlInterface
 		}
 		
 		$build_url	.=	$url;
-		$length		=	strlen($build_url);
+		$length	 = strlen($build_url);
 		
 		if ($build_url[$length - 1] == '/')
 		{
-			$build_url	=	substr($build_url, 0, -1);
+			$build_url = substr($build_url, 0, -1);
 		}
 		
 		return $build_url;
@@ -103,7 +103,7 @@ class FUrl implements FUrlInterface
 	 */
 	public static function redirect($url, $time = 0)
 	{
-		$redirect	=	'<meta http-equiv="refresh" content="' . $time . '; url=' . $url . '" />';
+		$redirect = '<meta http-equiv="refresh" content="' . $time . '; url=' . $url . '" />';
 		
 		return $redirect;
 	}
@@ -137,13 +137,13 @@ class FUrl implements FUrlInterface
 		if (function_exists('curl_init'))
 		{
 			// We can use curl
-			$ch	=	curl_init();
+			$ch = curl_init();
 
 			curl_setopt($ch, CURLOPT_URL, $url);
 			curl_setopt($ch, CURLOPT_HEADER, 0);
 			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 
-			$page	=	curl_exec($ch);
+			$page = curl_exec($ch);
 
 			curl_close($ch);
 
