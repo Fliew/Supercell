@@ -1,8 +1,8 @@
 <?php
 class error
 {
-	public function main()
-	{
-		echo 'Error';
-	}
+    public function main()
+    {
+        echo 'Error';
+    }
 }
