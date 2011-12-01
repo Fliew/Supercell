@@ -57,18 +57,18 @@ define('CACHE_PATH', SERVER_PATH . 'application/cache/');
 define('LOGS_PATH', SERVER_PATH . 'application/logs/');
 
 // Core Files
-require(SERVER_PATH . 'system/core/assert.php');			// Assert
-require(SERVER_PATH . 'system/core/logInterface.php');		// Log Interface
-require(SERVER_PATH . 'system/core/log.php');				// Log
-require(SERVER_PATH . 'system/core/errorsInterface.php');	// Errors Interface
-require(SERVER_PATH . 'system/core/errors.php');			// Errors
-require(SERVER_PATH . 'system/core/configInterface.php');	// Config Interface
-require(SERVER_PATH . 'system/core/config.php');			// Config
-require(SERVER_PATH . 'system/core/loadInterface.php');		// Load Interface
-require(SERVER_PATH . 'system/core/load.php');				// Load
-require(SERVER_PATH . 'system/core/routerInterface.php');	// Router Interface
-require(SERVER_PATH . 'system/core/router.php');			// Router
-require(SERVER_PATH . 'system/core/runInterface.php');		// Run Interface
-require(SERVER_PATH . 'system/core/run.php');				// Run
+require(SERVER_PATH . 'system/core/assert/assert.php');				// Assert
+require(SERVER_PATH . 'system/core/log/logInterface.php');			// Log Interface
+require(SERVER_PATH . 'system/core/log/log.php');					// Log
+require(SERVER_PATH . 'system/core/errors/errorsInterface.php');	// Errors Interface
+require(SERVER_PATH . 'system/core/errors/errors.php');				// Errors
+require(SERVER_PATH . 'system/core/config/configInterface.php');	// Config Interface
+require(SERVER_PATH . 'system/core/config/config.php');				// Config
+require(SERVER_PATH . 'system/core/load/loadInterface.php');		// Load Interface
+require(SERVER_PATH . 'system/core/load/load.php');					// Load
+require(SERVER_PATH . 'system/core/router/routerInterface.php');	// Router Interface
+require(SERVER_PATH . 'system/core/router/router.php');				// Router
+require(SERVER_PATH . 'system/core/run/runInterface.php');			// Run Interface
+require(SERVER_PATH . 'system/core/run/run.php');					// Run
 
 FRun::start();
