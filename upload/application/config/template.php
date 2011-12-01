@@ -23,3 +23,6 @@ $compile_dir	=	SERVER_PATH . 'application/cache/template_compile/';
 
 // Cache Directory
 $cache_dir	=	SERVER_PATH . 'application/cache/template/';
+
+// Compress HTML
+$compress = false;

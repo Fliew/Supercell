@@ -60,6 +60,12 @@ class FTemplate implements FTemplateInterface
 			// Clears all compile files for instant changes.
 			$this->smarty->clear_compiled_tpl();
 		}
+		
+		// Compress
+		if ($template_config->setting('compress'))
+		{
+			$this->smarty->loadFilter('output', 'trimwhitespace');
+		}
 	}
 	
 	/**
