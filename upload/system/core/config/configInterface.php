@@ -24,7 +24,7 @@ interface FConfigInterface
      * 
      * @access  public
      * @param   string  $file
-     * @param
+     * @param	string	$location
      * @return  void
      */
     public function __construct($file, $location = '');
