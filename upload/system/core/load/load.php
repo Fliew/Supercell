@@ -20,6 +20,8 @@ class load implements loadInterface
     /**
      * Load a system library
      * 
+     * @author  Riley Wiebe
+     * 
      * @access  public
      * @static
      * @param   string  $name
@@ -60,42 +62,60 @@ class load implements loadInterface
     /**
      * Load an application library
      * 
+     * @author  Riley Wiebe
+     * 
      * @access  public
      * @static
      * @param   string  $name
+     * @param	string	$location
      * @param   boolean $force_object
      * @return  void
      */
-    public static function app_library($name, $force_object = false)
+    public static function app_library($name, $location = '/', $force_object = false)
     {
-        // File path
-        $path = SERVER_PATH . 'application/libraries/' . $name . '/' . $name . '.php';
+        if ($location[0] != '/')
+        {
+            $location = '/' . $location;
+        }
         
-        // Does this library exist?
-        if (!file_exists($path))
+        if ($location[strlen($location) - 1] != '/')
         {
-            // Send error
-            throw new FErrors('Application library "' . $name . '" not found.');
+            $location = $location . '/';
         }
-        else
+        
+		// Path the library file
+		$path = SERVER_PATH . 'application/libraries' . $location . $name;
+        $path_file = SERVER_PATH . 'application/libraries' . $location . $name . '.php';
+		
+		if (!file_exists($path_file))
+		{
+			// Style two
+			$path = SERVER_PATH . 'application/libraries' . $location . $name . '/' . $name;
+            $path_file = SERVER_PATH . 'application/libraries' . $location . $name . '/' . $name . '.php';
+			
+	        if (!file_exists($path_file))
+	        {
+	            // Send error
+	            throw new FErrors('Application library "' . $name . '" not found.');
+	        }
+		}
+		
+        $interface = $path . 'Interface.php';
+        $abstract = $path . 'Abstract.php';
+            
+        // Load interface?
+        if (file_exists($interface))
         {
-            $interface = SERVER_PATH . 'application/libraries/' . $name . '/' . $name . 'Interface.php';
-            $abstract = SERVER_PATH . 'application/libraries/' . $name . '/' . $name . 'Abstract.php';
-            
-            // Load interface?
-            if (file_exists($interface))
-            {
-                require_once($interface);
-            }
-            
-            // Load abstract
-            if (file_exists($abstract))
-            {
-                require_once($abstract);
-            }
-            
-            // Found
-            require_once($path);
+            require_once($interface);
         }
+            
+        // Load abstract
+        if (file_exists($abstract))
+        {
+            require_once($abstract);
+        }
+            
+        // Found
+        require_once($path_file);
     }
 }

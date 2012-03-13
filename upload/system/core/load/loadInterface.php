@@ -36,8 +36,9 @@ interface loadInterface
      * @access  public
      * @static
      * @param   string  $name
+     * @param	string	$location
      * @param   boolean $force_object
      * @return  void
      */
-    public static function app_library($name, $force_object = false);
+    public static function app_library($name, $location = '/', $force_object = false);
 }
