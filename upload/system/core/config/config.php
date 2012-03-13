@@ -36,11 +36,22 @@ class FConfig implements FConfigInterface
      * 
      * @access  public
      * @param   string  $file
+     * @param
      * @return  void
      */
-    public function __construct($file)
+    public function __construct($file, $location = '')
     {
-        $this->path = CONFIG_PATH . $file . '.php';
+        if ($location[0] == '/')
+        {
+            $location = substr($location, 1);
+        }
+        
+        if ($location[strlen($location) - 1] != '/')
+        {
+            $location = $location . '/';
+        }
+        
+        $this->path = CONFIG_PATH . $location . $file . '.php';
         
         // Prevents it from being in our list
         unset($file);

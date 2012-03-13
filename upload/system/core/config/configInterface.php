@@ -24,9 +24,10 @@ interface FConfigInterface
      * 
      * @access  public
      * @param   string  $file
+     * @param
      * @return  void
      */
-    public function __construct($file);
+    public function __construct($file, $location = '');
     
     /**
      * Returns a config variable's value
